@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Web Scraper Summarizer",
+  "version": "1.0",
+  "description": "A Chrome extension that scrapes web pages and summarizes the content using Ollama.js.",
+  "host_permissions": [
+    "http://127.0.0.1:11434/*",
+    "<all_urls>"
+  ],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting",
+    "storage",
+    "declarativeNetRequest"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "summarize.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
