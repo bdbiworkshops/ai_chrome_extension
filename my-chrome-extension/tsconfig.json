@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "target": "esnext",
-    "module": "Node16",
-    "moduleResolution": "node16",
-    "strict": true,
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": false
+    "outDir": "./dist", // Specifies the output directory for the compiled JavaScript files.
+    "rootDir": "./src", // Specifies the root directory of the TypeScript source files.
+    "target": "esnext", // Specifies the target JavaScript version for the compiled output.
+    "module": "Node16", // Specifies the module system to use in the compiled output.
+    "moduleResolution": "node16", // Specifies how module resolution should be performed.
+    "strict": true, // Enables strict type-checking options.
+    "jsx": "react-jsx", // Specifies how JSX should be compiled.
+    "esModuleInterop": true, // Enables interoperability between CommonJS and ES Modules.
+    "skipLibCheck": true, // Skips type checking of declaration files.
+    "forceConsistentCasingInFileNames": true, // Ensures consistent casing in file names.
+    "noEmit": false // Ensures that the compiler emits the compiled JavaScript files.
   },
-  "include": ["src", "src/summary"]
+  "include": ["src", "src/summary"] // Specifies the files to include in the compilation.
 }

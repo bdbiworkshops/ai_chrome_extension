@@ -21,3 +21,5 @@ export async function summarize(text: string): Promise<string> {
     throw new Error("Failed to fetch summary.");
   }
 }
+
+// Not used since explicitly wrote in background.ts
