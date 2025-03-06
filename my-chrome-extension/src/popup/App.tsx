@@ -6,18 +6,23 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Function to handle the scraping and summarizing process
   const handleScrapeAndSummarize = () => {
+    // Setting loading state to true and clearing previous error and summary
     setLoading(true);
     setError(null);
     setSummary(null);
 
+    // Querying the active tab in the current window
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      // Checking if an active tab is found
       if (!tabs[0]?.id) {
         setError("No active tab found.");
         setLoading(false);
         return;
       }
 
+      // Injecting the content script into the active tab
       chrome.scripting.executeScript(
         {
           target: { tabId: tabs[0].id },
@@ -26,19 +31,24 @@ const App: React.FC = () => {
         () => {
           console.log("✅ Content script injected!");
 
+          // Sending a message to the content script to start scraping and summarizing
           chrome.tabs.sendMessage(
             tabs[0].id!,
             { action: "scrapeAndSummarize" },
             (response) => {
+              // Setting loading state to false after receiving a response
               setLoading(false);
 
+              // Handling any runtime errors from Chrome
               if (chrome.runtime.lastError) {
                 console.error("❌ Chrome runtime error:", chrome.runtime.lastError.message);
                 setError(chrome.runtime.lastError.message || "An unknown error occurred.");
               } else if (response?.error) {
+                // Handling any errors from the content script
                 console.error("❌ Content script error:", response.error);
                 setError(response.error);
               } else {
+                // Setting the received summary in the state
                 console.log("✅ Summary received:", response.summary);
                 setSummary(response.summary);
               }
@@ -49,6 +59,7 @@ const App: React.FC = () => {
     });
   };
 
+  // Rendering the UI of the popup
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>Web Scraper Summarizer</h1>
@@ -71,8 +82,6 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-
 
 const styles: { [key: string]: CSSProperties } = {
   container: {
